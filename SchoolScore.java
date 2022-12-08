@@ -38,7 +38,7 @@ public class SchoolScore {
 		int[][] score = new int[50][10];			// 학생별 과목 점수.
 		Scanner scaninput = new Scanner(System.in);
 
-		for(int i = 0 ; i< 50 ; i++) {
+		for(int i = 0 ; i< 50 ; i++) {				// 점수 초기화.
 			for(int j = 0; j<10 ; j++) {
 				score[i][j] = 0;
 			}
@@ -49,7 +49,7 @@ public class SchoolScore {
 			System.out.println("1. 입력  | 2. 출력  |  3. 수정  |  4. 전체평균  |  5. 과목평균  |  6. 종료");
 			String menuInput = scaninput.nextLine();
 			switch(menuInput) {
-				case "1" :
+				case "1" :		//	1.입력
 //					InputData(score, studentNumber, subjectNumber);
 					System.out.println("1. 학생  |  2. 과목  |  3. 점수");
 					String submenuInput = scaninput.nextLine();
@@ -91,7 +91,7 @@ public class SchoolScore {
 						System.out.println("입력이 잘못되었습니다.");
 					}
 					break;
-				case "2" :
+				case "2" :		// 2.출력
 					System.out.printf("%5s ", "");
 					for(int j = 0 ; j< 10 && subjectName[j] != null; j++) {
 						System.out.printf("%5s ", subjectName[j]);
@@ -105,7 +105,7 @@ public class SchoolScore {
 						System.out.printf("\n");
 					}
 					break;
-				case "3" :
+				case "3" :		// 3. 수정
 					System.out.printf("%5s ", "");
 					for(int j = 0 ; j< 10 && subjectName[j] != null; j++) {
 						System.out.printf("%5s ", subjectName[j]);
@@ -119,8 +119,30 @@ public class SchoolScore {
 						System.out.printf("\n");
 					}
 					// 수정부분 입력받을부분
+					System.out.println("\n수정할 학생이름을 입력하세요.");
+					String studentIn = scaninput.nextLine();
+					System.out.println("\n수정할 과목이름을 입력하세요.");
+					String subjectIn = scaninput.nextLine();
+					System.out.println("\n수정할 점수를 입력하세요.");
+					int scoreIn = scaninput.nextInt();
+					int check = 0;
+					for(int i = 0; i< 50 && studentName[i] != null; i++) {
+						for(int j = 0 ; j< 10 && subjectName[j] != null; j++) {
+							if(studentIn.equals(studentName[i]) && subjectIn.equals(subjectName[j])) {
+								score[i][j] = scoreIn;
+								System.out.printf("\n %5s(학생) %5s(과목) %5d로 수정되었습니다.", studentName[i], subjectName[j], score[i][j]);
+								check =1;
+							}
+							if(check ==1) break;
+						}
+						System.out.printf("\n");
+						if(check ==1) break;
+					}
+					if(check == 0)
+						System.out.printf("\n 입력이 잘못되었거나 값이 수정되지 않았습니다.");
+					
 					break;
-				case "4" :
+				case "4" :		// 4. 전체평균
 					for(int i=0; i<50 && studentName[i] != null; i++) {
 						int sum = 0;
 						for(int j=0; j<10 && subjectName[j] != null; j++) {
@@ -129,7 +151,7 @@ public class SchoolScore {
 						System.out.printf("\n %5s  총점 : %5d   평균 : %7.1f", studentName[i], sum, (float) sum/subjectNumber);
 					}
 					break;
-				case "5" :
+				case "5" :		// 5. 과목평균
 					for(int j=0; j<10 && subjectName[j] != null; j++) {
 						int sum2 = 0;
 						for(int i=0; i<50 && studentName[i] != null; i++) {
@@ -139,7 +161,7 @@ public class SchoolScore {
 						System.out.printf("\n %5s  총점 : %5d   평균 : %7.1f", subjectName[j], sum2, (float) sum2/studentNumber);
 					}
 					break;
-				case "6" :
+				case "6" :		// 6. 종료
 					onOff = false;
 					break;
 				default :
